@@ -5,76 +5,62 @@
 import 'package:flutter/material.dart';
 
  import 'note_screen.dart';
+
  import '../models/note.dart';
+class NoteScreen extends StatelessWidget {
+  Note currentNote;
+  String chosen;
+  NoteScreen(this.currentNote, this.chosen, );
 
-class ListScreen extends StatefulWidget {
-  @override
-  _ListScreenState createState() => _ListScreenState();
-}
-
-class _ListScreenState extends State<ListScreen> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Notes'),
+        leading: Container(),
+        centerTitle: true,
+        title: Text(chosen.toString()),
         actions: [
-          CircleAvatar(
-            backgroundColor: Colors.blue.shade200,
-            child: Text(
-              '4',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0),
-            ),
-          ),
-          SizedBox(
-            width: 10,
-          ),
-        ],
-      ),
-      body: ListView.separated(
-        itemCount: 4,
-        separatorBuilder: (context, index) => Divider(
-          color: Colors.blueGrey,
-        ),
-        itemBuilder: (context, index) => ListTile(
-          trailing: SizedBox(
-            width: 110.0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  icon: Icon(Icons.edit, color: Colors.blue),
-                  onPressed: () {},
-                ),
-                IconButton(
-                  icon: Icon(
-                    Icons.delete,
-                    color: Colors.blue,
-                  ),
-                  onPressed: () {},
-                ),
-              ],
-            ),
-          ),
-          title: Text('Note title'),
-          subtitle: Text('Note content'),
-          onTap: () {},
-          onLongPress: () {},
-        ),
-      ),
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-              child: Icon(Icons.unfold_less),
-              tooltip: 'Show less. Hide notes content',
+          IconButton(
+              icon: Icon(
+                Icons.check_circle,
+                size: 30,
+              ),
               onPressed: () {}),
-          FloatingActionButton(
-            child: Icon(Icons.add),
-            tooltip: 'Add a new note',
-            onPressed: () {},
-          ),
+          IconButton(
+              icon: Icon(
+                Icons.cancel_sharp,
+                size: 30,
+              ),
+              onPressed: () {}),
         ],
+      ),
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10.0),
+        child: Column(
+          children: [
+            TextFormField(
+              initialValue: currentNote.title,
+              enabled: false,
+              decoration: InputDecoration(
+                hintText: 'Type the title here',
+              ),
+              onChanged: (value) {},
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Expanded(
+              child: TextFormField(
+                  enabled: true,
+                  initialValue: null,
+                  maxLines: null,
+                  expands: true,
+                  decoration: InputDecoration(
+                    hintText: 'Type the description',
+                  ),
+                  onChanged: (value) {}),
+            ),
+          ],
+        ),
       ),
     );
   }
